@@ -19,5 +19,17 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build
-        run: npm run build
+      - name: Validando existencia de proyecto en SonarCloud
+        id: validateProjectSonarCloud
+        run: |
+          set +e
+          curl -f -X POST -u ${{ secrets.SONAR_TOKEN }}: "https://sonarcloud.io/api/projects/create" -d "name=${{ github.repository.name }}" -d "project=${{ github.repository.name }}" -d "LabFinalDevOps" -d "visibility=public"
+          if [ $? -ne 0 ]; then
+            echo "Proyecto ya existe en SonarCloud"
+            exit 1
+          else
+            echo "Proyecto ${{ github.event.repository.name }}creado en SonarCloud"
+            echo "Se establece rama main como rama por defecto"
+
+            curl -X POST -u ${{ secrets.SONAR_TOKEN }}: "https://sonarcloud.io/api/project_branches/rename" -d "project=${{ github.repository.name }}" -d "name=main"
+          fi
