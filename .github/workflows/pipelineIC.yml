@@ -64,6 +64,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Install dependencies
+        run: npm install
+
       - name: Dependency check
         uses: dependency-check/Dependency-Check_Action@1.1.0
         env:
@@ -72,7 +75,6 @@ jobs:
           project: ${{ github.event.repository.name }}
           path: "."
           format: "HTML"
-          out: "report"
           args: >
             --failOnCVSS 7
             --enableRetired
