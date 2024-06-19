@@ -17,4 +17,4 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build
-        run: npm run build
+        run: npm intall
