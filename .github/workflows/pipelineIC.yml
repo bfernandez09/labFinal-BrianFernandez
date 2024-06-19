@@ -75,7 +75,6 @@ jobs:
           project: '${{ github.event.repository.name }}'
           path: '.'
           format: 'HTML'
-          out: 'report'
           args: >
             --failOnCVSS 7
             --enableRetired
@@ -84,5 +83,5 @@ jobs:
         uses: actions/upload-artifact@master
         with:
           name: Depcheck report
-          path: ${{ github.workspace }}/report
+          path: ${{ github.workspace }}/reports/dependency-check-report.html
     
