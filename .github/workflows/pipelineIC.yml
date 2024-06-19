@@ -69,8 +69,6 @@ jobs:
 
       - name: Dependency check
         uses: dependency-check/Dependency-Check_Action@1.1.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           project: ${{ github.event.repository.name }}
           path: "."
