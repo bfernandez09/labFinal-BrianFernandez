@@ -5,7 +5,7 @@ on:
       - feature-*
   
 jobs:
-  build:
+  SAST:
     runs-on: ubuntu-latest
     steps:
       - name: Set up Node.js
@@ -16,5 +16,5 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Log
-        run: ls -R
+      - name: Build
+        run: npm run build
