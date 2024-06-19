@@ -23,10 +23,10 @@ jobs:
         id: validateProjectSonarCloud
         run: |
           set +e
-          curl -f -X POST -u ${{ secrets.SONAR_TOKEN }}: "https://sonarcloud.io/api/projects/create" -d "name=${{ github.repository.name }}" -d "project=${{ github.repository.name }}" -d "LabFinalDevOps" -d "visibility=public"
-          if [ $? -ne 0 ]; then
+          curl -f -X POST -u ${{ secrets.SONAR_TOKEN }}: "https://sonarcloud.io/api/projects/create" -d "name=${{ github.event.repository.name }}" -d "project=${{ github.event.repository.name }}" -d "organization=LabFinalDevOps" -d "visibility=public"
+          if [ $? -ne 0 ]
+           then
             echo "Proyecto ya existe en SonarCloud"
-            exit 1
           else
             echo "Proyecto ${{ github.event.repository.name }}creado en SonarCloud"
             echo "Se establece rama main como rama por defecto"
