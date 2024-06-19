@@ -33,3 +33,15 @@ jobs:
 
             curl -X POST -u ${{ secrets.SONAR_TOKEN }}: "https://sonarcloud.io/api/project_branches/rename" -d "project=${{ github.repository.name }}" -d "name=main"
           fi
+      
+      - name: Run SonarCloud analysis
+        uses: SonarSource/sonarcloud-github-action@v1.9
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.projectKey=${{ secrets.SONAR_TOKEN }}
+            -Dsonar.organization=labfinaldevops
+            -Dsonar.sources=src
+            -Dsonar.tests=src
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
