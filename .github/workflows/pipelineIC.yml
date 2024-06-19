@@ -69,15 +69,16 @@ jobs:
 
       - name: Dependency check
         uses: dependency-check/Dependency-Check_Action@1.1.0
+        env:
+          JAVA_HOME: /opt/jdk
         with:
-          project: ${{ github.event.repository.name }}
-          path: "."
-          format: "HTML"
-          outputDirectory: "report"
-          args: |
+          project: '${{ github.event.repository.name }}'
+          path: '.'
+          format: 'HTML'
+          out: 'report'
+          args: >
             --failOnCVSS 7
             --enableRetired
-            --skip=yarn.lock
 
       - name: Upload Test result
         uses: actions/upload-artifact@master
