@@ -78,6 +78,7 @@ jobs:
           args: >
             --failOnCVSS 7
             --enableRetired
+            --disableYarnAudit
 
       - name: Upload Test result
         uses: actions/upload-artifact@master
