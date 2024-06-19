@@ -24,20 +24,17 @@ jobs:
         run: |
           set +e
           curl -f -X POST -u ${{ secrets.SONAR_TOKEN }}: "https://sonarcloud.io/api/projects/create" -d "name=${{ github.event.repository.name }}" -d "project=${{ github.event.repository.name }}" -d "organization=LabFinalDevOps" -d "visibility=public"
-          if [ $? -ne 0 ]
-           then
+          if [ $? -ne 0 ]; then
             echo "Proyecto ya existe en SonarCloud"
           else
-            echo "Proyecto ${{ github.event.repository.name }}creado en SonarCloud"
+            echo "Proyecto ${{ github.event.repository.name }} creado en SonarCloud"
             echo "Se establece rama main como rama por defecto"
 
-            curl -X POST -u ${{ secrets.SONAR_TOKEN }}: "https://sonarcloud.io/api/project_branches/rename" -d "project=${{ github.repository.name }}" -d "name=main"
+            curl -X POST -u ${{ secrets.SONAR_TOKEN }}: "https://sonarcloud.io/api/project_branches/rename" -d "project=${{ github.event.repository.name }}" -d "name=main"
           fi
       
-      - name: Run SonarCloud analysis
+      - name: Install SonarScanner
         run: |
-          -Dsonar.projectKey=labfinaldevops_labfinal-brianfernandez
-          -Dsonar.organization=labfinaldevops
-          -Dsonar.host.url=https://sonarcloud.io
-          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
-          -Dsonar.branch.name=feature-dev
+          npm install -g sonar-scanner
+
+      
