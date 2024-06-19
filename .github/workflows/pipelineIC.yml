@@ -66,6 +66,12 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+      
+      - name: Install Yarn
+        run: npm install -g yarn
+
+      - name: Regenerate yarn.lock
+        run: yarn install --frozen-lockfile
 
       - name: Dependency check
         uses: dependency-check/Dependency-Check_Action@1.1.0
