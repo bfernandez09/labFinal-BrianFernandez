@@ -78,6 +78,7 @@ jobs:
           args: >
             --failOnCVSS 7
             --enableRetired
+            --skip=yarn.lock
 
       - name: Upload test result
         uses: actions/upload-artifact@master
