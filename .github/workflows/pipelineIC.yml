@@ -2,7 +2,7 @@ name: WorkFlow
 on:
   push:
     branches:
-      - feature/*
+      - feature-*
   
 jobs:
   build:
