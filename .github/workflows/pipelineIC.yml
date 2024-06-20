@@ -68,10 +68,10 @@ jobs:
       - name: Install dependencies
         run: yarn install
       - name: Depcheck
-        uses: dependency-check/Dependency-Check_Action@main
+        uses: dependency-check/Dependency-Check_Action@1.1.0
         id: Depcheck
         with:
-          project: 'test'
+          project: 'labFinal-BrianFernandez'
           path: '.'
           format: 'HTML'
           out: 'reports'
