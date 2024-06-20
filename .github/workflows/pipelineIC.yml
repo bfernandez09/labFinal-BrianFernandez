@@ -63,8 +63,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Install Yarn
+        run: npm install -g yarn
       - name: Install dependencies
-        run: npm install
+        run: yarn install
       - name: Depcheck
         uses: dependency-check/Dependency-Check_Action@main
         id: Depcheck
@@ -76,9 +78,11 @@ jobs:
           args: >
             --failOnCVSS 7
             --enableRetired
+            --log
       - name: Upload Test results
         uses: actions/upload-artifact@master
         with:
-           name: Depcheck report
-           path: ${{github.workspace}}/reports
+          name: Depcheck report
+          path: ${{github.workspace}}/reports
+
     
