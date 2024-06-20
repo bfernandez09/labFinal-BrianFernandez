@@ -66,11 +66,27 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+      
+      - name: Install Yarn
+        run: npm install -g yarn
 
-      - name: Dependency-Check
-        uses: DependencyCheck/DependencyCheck_Action@main
+      - name: Regenerate yarn.lock
+        run: yarn install --frozen-lockfile
+
+      - name: Dependency check
+        uses: dependency-check/Dependency-Check_Action@1.1.0
+        env:
+          JAVA_HOME: /opt/jdk
         with:
-          project: 'labFinal-BrianFernandez'
-          format: 'ALL'
-          outdir: './dependency-check-report'
+          project: '${{ github.event.repository.name }}'
+          path: '.'
+          format: 'HTML'
+          args: >
+            --enableRetired
+
+      - name: Upload Test result
+        uses: actions/upload-artifact@master
+        with:
+          name: Depcheck report
+          path: ${{ github.workspace }}/reports
     
