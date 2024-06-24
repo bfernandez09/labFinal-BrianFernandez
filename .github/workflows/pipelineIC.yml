@@ -92,4 +92,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      
+      - name: Docker Login 
+        uses: docker/login-action@v3.0.0
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Docker Build
+        run: |
+          docker build -t brianfernandez/labfinal-brianfernandez:latest .
