@@ -93,7 +93,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       
-      - name: Ensure Docker is running
+      - name: Verificador Docker
         run: |
           sudo systemctl start docker
           sudo systemctl status docker
