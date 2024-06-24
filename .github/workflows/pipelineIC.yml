@@ -99,4 +99,4 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Docker Build
         run: |
-          docker build -t bfernandezziga/labfinal:latest .
+          docker build --tag bfernandezziga/labfinal:latest .
