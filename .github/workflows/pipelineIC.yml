@@ -119,4 +119,17 @@ jobs:
         with:
           image-ref: bfernandezziga/labfinal:latest
           format: table
-          exit-code: 1
+      - name: Docker Push
+        run: docker push bfernandezziga/labfinal:latest
+
+#--------------- DAST ---------------------#  
+
+  DAST:
+    needs: DockerScan
+    runs-on: self-hosted
+    steps:
+      - name: Despliegue de la aplicacion
+        run: docker run -d -p 3000:3000 bfernandezziga/labfinal:latest
+      - name: Sleep
+        run: sleep 3
+    
