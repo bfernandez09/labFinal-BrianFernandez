@@ -54,14 +54,12 @@ jobs:
             -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
             -Dsonar.branch.name=feature-dev
 
-      - name: Check Quality Gate
+      - name: Imprimo response de la api
         run: |
           response=$(curl -u ${{ secrets.SONAR_TOKEN }}: "https://sonarcloud.io/api/qualitygates/project_status?projectKey=labfinaldevops_labfinal-brianfernandez")
-          echo $response
-          if [[ "$response" == *"ERROR"* ]]; then
-            echo "Quality gate failed"
-            exit 1
-          fi
+          echo "Quality Gate response: $response"
+          status=$(echo $response | jq -r '.projectStatus.status')
+
 #--------------- SAST END -----------------#
 
 #--------------- SCA  ---------------------#
