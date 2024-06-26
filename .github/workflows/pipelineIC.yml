@@ -53,6 +53,18 @@ jobs:
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
             -Dsonar.branch.name=feature-dev
+
+      - name: Revision de vulnerabilidades
+        run: ./check-vulnerabilities.sh
+
+      - name: Continuo o detengo pipeline por vulnerabilidades en SonarCloud
+        run: |
+          if [ $? -eq 0 ]; then
+            echo "SonarCloud reporto vulnerabilidades bajas."
+          else
+            echo "SonarCloud reporto vulnerabilidades <= medias."
+            exit 1
+          fi
 #--------------- SAST END -----------------#
 
 #--------------- SCA  ---------------------#
