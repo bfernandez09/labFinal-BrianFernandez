@@ -54,15 +54,12 @@ jobs:
             -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
             -Dsonar.branch.name=feature-dev
 
-      - name: Revision de vulnerabilidades
-        run: ./check-vulnerabilities.sh
-
-      - name: Continuo o detengo pipeline por vulnerabilidades en SonarCloud
+      - name: Check Quality Gate
         run: |
-          if [ $? -eq 0 ]; then
-            echo "SonarCloud reporto vulnerabilidades bajas."
-          else
-            echo "SonarCloud reporto vulnerabilidades <= medias."
+          response=$(curl -u ${{ secrets.SONAR_TOKEN }}: "https://sonarcloud.io/api/qualitygates/project_status?projectKey=labfinaldevops_labfinal-brianfernandez")
+          echo $response
+          if [[ "$response" == *"ERROR"* ]]; then
+            echo "Quality gate failed"
             exit 1
           fi
 #--------------- SAST END -----------------#
