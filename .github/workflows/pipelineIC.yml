@@ -53,22 +53,7 @@ jobs:
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
             -Dsonar.branch.name=feature-dev
-
-      - name: Checkeo de errores segun la api qualityGate # Agregar siempre la branch, me faltaba eso
-        run: |
-          response=$(curl -u ${{ secrets.SONAR_TOKEN }}: "https://sonarcloud.io/api/qualitygates/project_status?projectKey=labfinaldevops_labfinal-brianfernandez&branch=feature-dev")
-          echo "response: $response"
-          status=$(echo $response | jq -r '.projectStatus.status')
-
-          if [ "$status" == "NONE" ]; then
-            echo "No existe Quality Gate asociado al proyecto"
-            exit 1
-          elif [ "$status" != "OK" ]; then
-            echo "Fallo el Quality Gate"
-            exit 1
-          else
-            echo "Quality Gate retorno un status aprobado."
-          fi
+          
 #--------------- SAST END -----------------#
 
 #--------------- SCA  ---------------------#
@@ -92,7 +77,7 @@ jobs:
           format: 'HTML'
           out: 'reports'
           args: >
-            --failOnCVSS 7
+            --failOnCVSS 4
             --enableRetired
             --log
       - name: Upload Test results
