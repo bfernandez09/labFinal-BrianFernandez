@@ -86,6 +86,15 @@ jobs:
           name: Depcheck report
           path: ${{github.workspace}}/reports
 
+      - name: Detector de vulnerabilidades
+        run: |
+          if grep -E 'MEDIUM|HIGH|SEVERE' ${{github.workspace}}/reports/dependency-check-report.html; then
+            echo "se encontraron vulnerabilidades medias, altas o severas, por favor revisar el reporte."
+            exit 1
+          else
+            echo "HTML de retorno no detalla vulnerabilidades medias, altas o severas."
+          fi
+
 #--------------- DOCKER BUILD IMAGE  ---------------------#    
   DockerBuild:
     needs: SCA
