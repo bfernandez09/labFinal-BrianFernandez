@@ -119,9 +119,16 @@ jobs:
         uses: aquasecurity/trivy-action@master
         with:
           image-ref: bfernandezziga/labfinal:latest
-          format: table
+          format: 'html'
+          output: 'trivy-report.html' 
           exit-code: 1
           severity: HIGH,CRITICAL,MEDIUM
+      - name: Agrego el reporte de Trivy
+        uses: actions/upload-artifact@v2
+        with:
+          name: trivy-report
+          path: trivy-report.html
+
       - name: Docker Push
         run: docker push bfernandezziga/labfinal:latest
 
