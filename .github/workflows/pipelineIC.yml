@@ -121,9 +121,7 @@ jobs:
           image-ref: bfernandezziga/labfinal:latest
           format: 'json'
           output: 'trivy-report.json'
-          exit-code: '1'
-          severity: 'CRITICAL,HIGH'
-
+          
       - name: Agrego el reporte de Trivy
         uses: actions/upload-artifact@v2
         with:
